@@ -1,17 +1,8 @@
 #!/usr/bin/env node
 
-import chalk from "chalk";
-import boxen from "boxen"
+import fs from "fs";
+import process from "process";
 
-const greeting = chalk.white.bold("Hello!");
-
-const boxenOptions = {
- padding: 1,
- margin: 1,
- borderStyle: "round",
- borderColor: "green",
- backgroundColor: "#555555"
-};
-const msgBox = boxen( greeting, boxenOptions );
-
-console.log(msgBox);
+process.on("SIGINT", (code) => {
+  console.log("Process exit event with code: ", code);
+});
