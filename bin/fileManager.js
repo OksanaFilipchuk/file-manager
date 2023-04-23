@@ -72,6 +72,20 @@ class FileManager {
     }
   }
 
+  rn(argument1, argument2) {
+    try {
+      fs.rename(argument1, argument2, (err) => {
+        if (err) {
+          console.log(err.message);
+        } else {
+          console.log("Rename complete!");
+        }
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
   exit() {
     let userName = fs.readFileSync("userName.txt", "utf8");
     console.log(`Thank you for using File Manager, ${userName}, goodbye!`);

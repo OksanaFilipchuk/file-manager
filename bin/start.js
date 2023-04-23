@@ -39,9 +39,10 @@ const rl = readLine.createInterface({
 });
 
 rl.on("line", (input) => {
-  let argument = input.split(" ").map((el) => el.trim())[1];
+  let argument1 = input.split(" ").map((el) => el.trim())[1];
+  let argument2 = input.split(" ").map((el) => el.trim())[2];
   if (input.split(" ").length === 2 && input.trim().startsWith("cd")) {
-    fileManager.cd(argument);
+    fileManager.cd(argument1);
   } else if (input.trim() == ".exit") {
     fileManager.exit();
   } else if (input.trim() == "ls") {
@@ -49,9 +50,11 @@ rl.on("line", (input) => {
   } else if (input.trim() == "up") {
     fileManager.up();
   } else if (input.split(" ").length === 2 && input.trim().startsWith("cat")) {
-    fileManager.cat(argument);
+    fileManager.cat(argument1);
   } else if (input.split(" ").length === 2 && input.trim().startsWith("add")) {
-    fileManager.add(argument);
+    fileManager.add(argument1);
+  } else if (input.split(" ").length === 3 && input.trim().startsWith("rn")) {
+    fileManager.rn(argument1, argument2);
   } else console.log("Command not found");
 });
 
