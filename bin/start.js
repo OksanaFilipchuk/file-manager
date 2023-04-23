@@ -37,10 +37,17 @@ const rl = readLine.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
 rl.on("line", (input) => {
   if (input.split(" ").length === 2 && input.trim().startsWith("cd")) {
     fileManager.cd(input.split(" ").map((el) => el.trim())[1]);
   } else if (input.trim() == ".exit") {
     fileManager.exit();
+  } else if (input.trim() == "ls") {
+    fileManager.ls();
   } else console.log("Command not found");
+});
+
+rl.on("SIGINT", () => {
+  fileManager.exit();
 });

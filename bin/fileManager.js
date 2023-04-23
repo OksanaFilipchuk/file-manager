@@ -2,6 +2,18 @@ import path from "path";
 import process from "process";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import { readdir } from "fs/promises";
+import chalk from "chalk";
+import boxen from "boxen";
+import { table } from "table";
+
+const boxenOptions = {
+  padding: 1,
+  margin: 1,
+  borderStyle: "round",
+  borderColor: "green",
+  backgroundColor: "#555555",
+};
 
 class FileManager {
   constructor(userName) {
@@ -18,6 +30,21 @@ class FileManager {
     } catch (err) {
       console.log(err.message);
     }
+  }
+  ls() {
+    let data = [["index", "name", "type"]];
+    const getDirectories = async () => {
+      (await readdir(process.cwd(), { withFileTypes: true })).forEach(
+        (el, index) =>
+          data.push([
+            index + 1,
+            el.name,
+            el.isDirectory() ? "directory" : "file",
+          ])
+      );
+      console.log(table(data));
+    };
+    getDirectories();
   }
 
   exit() {
