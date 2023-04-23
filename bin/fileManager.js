@@ -7,17 +7,13 @@ import chalk from "chalk";
 import boxen from "boxen";
 import { table } from "table";
 
-const boxenOptions = {
-  padding: 1,
-  margin: 1,
-  borderStyle: "round",
-  borderColor: "green",
-  backgroundColor: "#555555",
-};
-
 class FileManager {
   constructor(userName) {
     this.userName = userName;
+  }
+
+  up() {
+    this.cd("..");
   }
 
   cd(dir) {
@@ -31,20 +27,49 @@ class FileManager {
       console.log(err.message);
     }
   }
+
   ls() {
     let data = [["index", "name", "type"]];
+
     const getDirectories = async () => {
       (await readdir(process.cwd(), { withFileTypes: true })).forEach(
         (el, index) =>
           data.push([
             index + 1,
-            el.name,
-            el.isDirectory() ? "directory" : "file",
+            chalk.green(el.name),
+            chalk.green(el.isDirectory() ? "directory" : "file"),
           ])
       );
       console.log(table(data));
     };
+
     getDirectories();
+  }
+
+  cat(filePath) {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    filePath = fs.existsSync(filePath)
+      ? filePath
+      : path.resolve(__dirname, filePath);
+    try {
+      let readStream = fs.createReadStream(filePath);
+      readStream.on("data", (data) => console.log(data.toString()));
+    } catch (err) {
+      (err) => console.log(err.message);
+    }
+  }
+
+  add(filePath) {
+    const __dirname = process.cwd();
+    try {
+      fs.writeFile(path.resolve(__dirname, filePath), "", function (err) {
+        if (err) throw err;
+        console.log("File is created successfully.");
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   exit() {

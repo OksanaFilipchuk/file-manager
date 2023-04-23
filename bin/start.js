@@ -39,12 +39,19 @@ const rl = readLine.createInterface({
 });
 
 rl.on("line", (input) => {
+  let argument = input.split(" ").map((el) => el.trim())[1];
   if (input.split(" ").length === 2 && input.trim().startsWith("cd")) {
-    fileManager.cd(input.split(" ").map((el) => el.trim())[1]);
+    fileManager.cd(argument);
   } else if (input.trim() == ".exit") {
     fileManager.exit();
   } else if (input.trim() == "ls") {
     fileManager.ls();
+  } else if (input.trim() == "up") {
+    fileManager.up();
+  } else if (input.split(" ").length === 2 && input.trim().startsWith("cat")) {
+    fileManager.cat(argument);
+  } else if (input.split(" ").length === 2 && input.trim().startsWith("add")) {
+    fileManager.add(argument);
   } else console.log("Command not found");
 });
 
