@@ -2,12 +2,15 @@ import process from "process";
 import { readdir } from "fs/promises";
 
 export function ls() {
-  let data = [["index", "name", "type"]];
+  let data = [];
 
   const getDirectories = async () => {
     (await readdir(process.cwd(), { withFileTypes: true })).forEach(
       (el, index) =>
-        data.push([index + 1, el.name, el.isDirectory() ? "directory" : "file"])
+        data.push({
+          name: el.name,
+          type: el.isDirectory() ? "directory" : "file",
+        })
     );
     console.table(data);
   };

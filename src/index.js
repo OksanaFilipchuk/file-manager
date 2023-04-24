@@ -1,4 +1,3 @@
-import fs from "fs";
 import process from "process";
 import readLine from "readline";
 import { ls } from "./nwd/ls.js";
@@ -7,6 +6,8 @@ import { up } from "./nwd/up.js";
 import { cat } from "./basicOperation/cat.js";
 import { add } from "./basicOperation/add.js";
 import { rn } from "./basicOperation/rn.js";
+import { rm } from "./basicOperation/rm.js";
+import { cp } from "./basicOperation/cp.js";
 import { exit } from "./exit.js";
 
 let name =
@@ -15,13 +16,6 @@ let name =
     ?.replace("--username=", "") || "unknown user";
 
 const greeting = `Welcome to the File Manager, ${name}!`;
-
-fs.writeFile("userName.txt", `${name}`, (err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-});
 
 console.log(greeting);
 
@@ -36,7 +30,7 @@ rl.on("line", (input) => {
   if (input.split(" ").length === 2 && input.trim().startsWith("cd")) {
     cd(argument1);
   } else if (input.trim() == ".exit") {
-    exit();
+    exit(name);
   } else if (input.trim() == "ls") {
     ls();
   } else if (input.trim() == "up") {
@@ -56,13 +50,19 @@ rl.on("line", (input) => {
     input.trim().startsWith("rn")
   ) {
     rn(argument1, argument2);
+  } else if (
+    input.trim().split(" ").length === 2 &&
+    input.trim().startsWith("rm")
+  ) {
+    rm(argument1);
+  } else if (
+    input.trim().split(" ").length === 3 &&
+    input.trim().startsWith("cp")
+  ) {
+    cp(argument1, argument2);
   } else console.log("Command not found");
 });
 
 rl.on("SIGINT", () => {
-  exit();
-});
-
-process.on("SIGINT", (code) => {
-  console.log("Process exit event with code: ", code);
+  exit(name);
 });
