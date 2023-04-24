@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "file-manager app",
   "type": "module",
-  "main": "./bin/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,5 @@
     "url": "https://github.com/OksanaFilipchuk/file-manager/issues"
   },
   "homepage": "https://github.com/OksanaFilipchuk/file-manager#readme",
-  "bin": {
-    "hello": "./bin/index.js"
-  },
-  "dependencies": {
-    "boxen": "4.0",
-    "chalk": "2.4"
-  }
+  "dependencies": {}
 }
