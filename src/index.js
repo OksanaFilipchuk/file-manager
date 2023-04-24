@@ -9,9 +9,8 @@ import { rn } from "./basicOperation/rn.js";
 import { rm } from "./basicOperation/rm.js";
 import { cp } from "./basicOperation/cp.js";
 import { mv } from "./basicOperation/mv.js";
+import { hash } from "./hash/hash.js";
 import { exit } from "./exit.js";
-
-console.log(argv);
 
 let name =
   process.argv
@@ -68,6 +67,11 @@ rl.on("line", (input) => {
     input.trim().startsWith("mv")
   ) {
     mv(argument1, argument2);
+  } else if (
+    input.trim().split(" ").length === 2 &&
+    input.trim().startsWith("hash")
+  ) {
+    hash(argument1);
   } else console.log("Command not found");
 });
 
