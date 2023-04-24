@@ -10,6 +10,7 @@ import { rm } from "./basicOperation/rm.js";
 import { cp } from "./basicOperation/cp.js";
 import { mv } from "./basicOperation/mv.js";
 import { hash } from "./hash/hash.js";
+import { compress } from "./compress/compress.js";
 import { exit } from "./exit.js";
 
 let name =
@@ -72,6 +73,11 @@ rl.on("line", (input) => {
     input.trim().startsWith("hash")
   ) {
     hash(argument1);
+  } else if (
+    input.trim().split(" ").length === 3 &&
+    input.trim().startsWith("compress")
+  ) {
+    compress(argument1, argument2);
   } else console.log("Command not found");
 });
 
