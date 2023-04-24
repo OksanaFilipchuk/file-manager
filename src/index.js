@@ -1,4 +1,4 @@
-import process from "process";
+import process, { argv } from "process";
 import readLine from "readline";
 import { ls } from "./nwd/ls.js";
 import { cd } from "./nwd/cd.js";
@@ -8,7 +8,10 @@ import { add } from "./basicOperation/add.js";
 import { rn } from "./basicOperation/rn.js";
 import { rm } from "./basicOperation/rm.js";
 import { cp } from "./basicOperation/cp.js";
+import { mv } from "./basicOperation/mv.js";
 import { exit } from "./exit.js";
+
+console.log(argv);
 
 let name =
   process.argv
@@ -60,6 +63,11 @@ rl.on("line", (input) => {
     input.trim().startsWith("cp")
   ) {
     cp(argument1, argument2);
+  } else if (
+    input.trim().split(" ").length === 3 &&
+    input.trim().startsWith("mv")
+  ) {
+    mv(argument1, argument2);
   } else console.log("Command not found");
 });
 
